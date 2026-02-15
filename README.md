@@ -2,6 +2,50 @@
 
 Shared ESLint, Prettier, Commitlint, and TypeScript configurations for React projects. This package provides consistent static analysis rules across all Neuraverse applications.
 
+## Quick Start
+
+For React projects, follow these steps to get up and running quickly:
+
+1. **Configure GitLab Registry** (create `.npmrc` in your project root):
+   ```ini
+   @neuraverse:registry=https://gitlab.hrg.systems/api/v4/packages/npm/
+   //gitlab.hrg.systems/api/v4/packages/npm/:_authToken=${GITLAB_TOKEN}
+   //gitlab.hrg.systems/api/v4/packages/npm/:always-auth=true
+   ```
+
+2. **Install the package and peer dependencies** (npm example):
+   ```bash
+   npm install --save-dev @neuraverse/static-analysis@^1.0.0 \
+     eslint@^9.0.0 prettier@^3.0.0 \
+     @ianvs/prettier-plugin-sort-imports@^4.0.0
+   ```
+
+3. **Create `eslint.config.mjs`**:
+   ```javascript
+   import reactConfig from "@neuraverse/static-analysis/eslint/react";
+   export default [...reactConfig];
+   ```
+
+4. **Create `prettier.config.js`**:
+   ```javascript
+   import prettierConfig from "@neuraverse/static-analysis/prettier";
+   export default { ...prettierConfig };
+   ```
+
+5. **Add scripts to `package.json`**:
+   ```json
+   {
+     "scripts": {
+       "lint": "eslint .",
+       "lint:fix": "eslint . --fix",
+       "format": "prettier --write .",
+       "format:check": "prettier --check ."
+     }
+   }
+   ```
+
+For detailed instructions and additional configurations (TypeScript, Commitlint, Husky, etc.), see the sections below.
+
 ## Installation
 
 ### Configure GitLab Registry
@@ -30,15 +74,43 @@ Using yarn:
 yarn add -D @neuraverse/static-analysis@^1.0.0
 ```
 
+Using pnpm:
+
+```bash
+pnpm add -D @neuraverse/static-analysis@^1.0.0
+```
+
 ### Install Peer Dependencies
 
 This package requires the following peer dependencies to be installed in your project:
 
+**Using npm:**
+
 ```bash
-npm install --save-dev eslint prettier @commitlint/cli @ianvs/prettier-plugin-sort-imports
+npm install --save-dev eslint@^9.0.0 prettier@^3.0.0 @ianvs/prettier-plugin-sort-imports@^4.0.0
+```
+
+**Using yarn:**
+
+```bash
+yarn add -D eslint@^9.0.0 prettier@^3.0.0 @ianvs/prettier-plugin-sort-imports@^4.0.0
+```
+
+**Using pnpm:**
+
+```bash
+pnpm add -D eslint@^9.0.0 prettier@^3.0.0 @ianvs/prettier-plugin-sort-imports@^4.0.0
 ```
 
 > **Note:** `@commitlint/cli` is optional and only required if you want to enforce conventional commits with Husky hooks.
+
+### Optional: Commitlint
+
+If you want to enforce conventional commits with Husky hooks, install:
+
+```bash
+npm install --save-dev @commitlint/cli@^19.0.0
+```
 
 ### Dependencies Included (DO NOT install separately)
 
@@ -130,8 +202,19 @@ Add to `package.json`:
 
 Or use `.prettierignore` by copying from the package:
 
+**On Linux/macOS/Git Bash:**
 ```bash
 cp node_modules/@neuraverse/static-analysis/prettierignore .prettierignore
+```
+
+**On Windows (PowerShell):**
+```powershell
+Copy-Item node_modules/@neuraverse/static-analysis/prettierignore .prettierignore
+```
+
+**On Windows (Command Prompt):**
+```cmd
+copy node_modules\@neuraverse\static-analysis\prettierignore .prettierignore
 ```
 
 ### Commitlint
@@ -180,40 +263,62 @@ For non-React projects:
 
 Copy the EditorConfig template to your project root:
 
+**On Linux/macOS/Git Bash:**
 ```bash
 cp node_modules/@neuraverse/static-analysis/editorconfig.template .editorconfig
+```
+
+**On Windows (PowerShell):**
+```powershell
+Copy-Item node_modules/@neuraverse/static-analysis/editorconfig.template .editorconfig
+```
+
+**On Windows (Command Prompt):**
+```cmd
+copy node_modules\@neuraverse\static-analysis\editorconfig.template .editorconfig
 ```
 
 ### Husky (Git Hooks)
 
 To enforce commit message format and run lint-staged with Husky:
 
-1. Install Husky and lint-staged:
+**Step 1:** Install Husky and lint-staged:
 
 ```bash
 npm install --save-dev husky lint-staged
 ```
 
-2. Add the prepare script and initialize Husky:
+**Step 2:** Initialize Husky:
 
 ```bash
 npm pkg set scripts.prepare="husky"
 npm run prepare
 ```
 
-3. Create the commit-msg hook (validates conventional commits):
-
-```bash
-echo 'npx --no -- commitlint --edit ${1}' > .husky/commit-msg
-```
-
-4. Create the pre-commit hook (runs lint-staged):
+**Step 3:** Create the pre-commit hook (runs lint-staged):
 
 ```bash
 echo 'npx lint-staged' > .husky/pre-commit
 ```
 
-> **Important:** Make sure you have `@commitlint/cli` installed as a peer dependency for the commit-msg hook to work.
+**Step 4 (Optional):** Create the commit-msg hook to validate conventional commits:
+
+> **Note:** This step requires `@commitlint/cli` and `@commitlint/config-conventional`. See the [Optional: Commitlint Dependencies](#optional-commitlint-dependencies) section above if you haven't installed them yet.
+
+**On Linux/macOS/Git Bash:**
+```bash
+echo 'npx --no -- commitlint --edit ${1}' > .husky/commit-msg
+```
+
+**On Windows (PowerShell):**
+```powershell
+echo 'npx --no -- commitlint --edit $1' | Out-File -FilePath .husky/commit-msg -Encoding utf8
+```
+
+**On Windows (Command Prompt):**
+```cmd
+echo npx --no -- commitlint --edit %1 > .husky/commit-msg
+```
 
 ### lint-staged
 
