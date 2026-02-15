@@ -4,47 +4,9 @@ Shared ESLint, Prettier, Commitlint, and TypeScript configurations for React pro
 
 ## Quick Start
 
-For React projects, follow these steps to get up and running quickly:
+**Basic setup for React projects:** Configure GitLab registry → Install package + peer dependencies → Create config files → Add npm scripts → Done!
 
-1. **Configure GitLab Registry** (create `.npmrc` in your project root):
-   ```ini
-   @neuraverse:registry=https://gitlab.hrg.systems/api/v4/packages/npm/
-   //gitlab.hrg.systems/api/v4/packages/npm/:_authToken=${GITLAB_TOKEN}
-   //gitlab.hrg.systems/api/v4/packages/npm/:always-auth=true
-   ```
-
-2. **Install the package and peer dependencies** (npm example):
-   ```bash
-   npm install --save-dev @neuraverse/static-analysis@^1.0.0 \
-     eslint@^9.0.0 prettier@^3.0.0 \
-     @ianvs/prettier-plugin-sort-imports@^4.0.0
-   ```
-
-3. **Create `eslint.config.mjs`**:
-   ```javascript
-   import reactConfig from "@neuraverse/static-analysis/eslint/react";
-   export default [...reactConfig];
-   ```
-
-4. **Create `prettier.config.js`**:
-   ```javascript
-   import prettierConfig from "@neuraverse/static-analysis/prettier";
-   export default { ...prettierConfig };
-   ```
-
-5. **Add scripts to `package.json`**:
-   ```json
-   {
-     "scripts": {
-       "lint": "eslint .",
-       "lint:fix": "eslint . --fix",
-       "format": "prettier --write .",
-       "format:check": "prettier --check ."
-     }
-   }
-   ```
-
-For detailed instructions and additional configurations (TypeScript, Commitlint, Husky, etc.), see the sections below.
+For step-by-step instructions, see the [Installation](#installation) section below.
 
 ## Installation
 
@@ -112,10 +74,15 @@ If you want to enforce conventional commits with Husky hooks, install:
 npm install --save-dev @commitlint/cli@^19.0.0
 ```
 
-### Dependencies Included (DO NOT install separately)
+### ⚠️ Important: Dependencies Already Included
 
-The following packages are already included as dependencies of this library. **Do not install them directly** in your project to avoid version conflicts:
+**The following packages are included in this library. If your project already has them installed, remove them first to avoid conflicts:**
 
+```bash
+npm uninstall eslint-config-prettier eslint-plugin-react eslint-plugin-react-hooks eslint-plugin-jsx-a11y eslint-plugin-import typescript-eslint @commitlint/config-conventional
+```
+
+**Packages included:**
 - `eslint-config-prettier` - Disables ESLint rules that conflict with Prettier
 - `eslint-plugin-react` - React specific linting rules
 - `eslint-plugin-react-hooks` - Rules of Hooks enforcement
@@ -124,11 +91,7 @@ The following packages are already included as dependencies of this library. **D
 - `typescript-eslint` - TypeScript ESLint support
 - `@commitlint/config-conventional` - Conventional commits configuration
 
-If your project already has any of these installed, **remove them** before using this library:
-
-```bash
-npm uninstall eslint-config-prettier eslint-plugin-react eslint-plugin-react-hooks eslint-plugin-jsx-a11y eslint-plugin-import typescript-eslint @commitlint/config-conventional
-```
+> **Do not install these packages directly.** They are already bundled and will be available automatically when you install `@neuraverse/static-analysis`.
 
 ## Usage
 
