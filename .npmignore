@@ -1,0 +1,17 @@
+# Exclude CI/CD and development files from npm package
+.gitlab-ci.yml
+.releaserc.json
+.git
+.gitignore
+.npmrc
+
+# Exclude IDE and editor files
+.vscode
+.idea
+*.swp
+*.swo
+
+# Exclude test and development files
+coverage
+.nyc_output
+*.log

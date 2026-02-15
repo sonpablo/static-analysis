@@ -1,0 +1,63 @@
+{
+  "name": "@neuraverse/static-analysis",
+  "version": "1.0.2",
+  "description": "Shared ESLint, Prettier, Commitlint, and TypeScript configurations for React projects",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.js",
+    "./eslint/base": "./src/eslint/base.mjs",
+    "./eslint/react": "./src/eslint/react.mjs",
+    "./prettier": "./src/prettier/index.js",
+    "./prettierignore": "./prettierignore",
+    "./commitlint": "./src/commitlint/index.js",
+    "./lintstaged": "./src/lintstaged/index.js",
+    "./editorconfig.template": "./editorconfig.template",
+    "./tsconfig/base": "./tsconfig/base.json",
+    "./tsconfig/react": "./tsconfig/react.json"
+  },
+  "files": [
+    "src/",
+    "tsconfig/",
+    "editorconfig.template",
+    "prettierignore",
+    "CHANGELOG.md",
+    "README.md",
+    "LICENSE"
+  ],
+  "keywords": [
+    "eslint",
+    "prettier",
+    "commitlint",
+    "typescript",
+    "react",
+    "static-analysis",
+    "code-quality"
+  ],
+  "author": "Neuraverse",
+  "license": "MIT",
+  "peerDependencies": {
+    "@commitlint/cli": ">=19.0.0",
+    "@ianvs/prettier-plugin-sort-imports": ">=4.0.0",
+    "eslint": ">=9.0.0",
+    "prettier": ">=3.0.0"
+  },
+  "peerDependenciesMeta": {
+    "@commitlint/cli": {
+      "optional": true
+    }
+  },
+  "dependencies": {
+    "@commitlint/config-conventional": "19.8.0",
+    "@eslint/js": "9.8.0",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-import": "2.31.0",
+    "eslint-plugin-jsx-a11y": "6.10.1",
+    "eslint-plugin-react": "7.35.0",
+    "eslint-plugin-react-hooks": "5.0.0",
+    "typescript-eslint": "8.19.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@gitlab.hrg.systems:neuraverse/frontend-suite/libraries/neuraverse-static-analysis.git"
+  }
+}

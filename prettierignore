@@ -1,0 +1,42 @@
+# Add files here to ignore them from prettier formatting
+/dist
+/coverage
+/.nx
+.cursor
+.vscode
+.github
+.husky
+.prettierignore
+node_modules
+*.min.js
+*.min.css
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Generated files
+**/generated/**
+**/schema/generated/**
+
+# Build outputs
+*.tsbuildinfo
+
+# 3D model files
+*.glb
+
+# Monaco editor files
+**/monaco/**
+**/public/monaco/**
+
+# Worker files
+*.worker.js
+*.worker.ts
+
+# Flowbite config
+.flowbite-react/
+
+# Type definition files
+*.d.ts
+*.d.js
+*.d.mts
+*.d.cts
